@@ -35,10 +35,10 @@ export const universalQuestions = {
     questions: [
       { id: 'diabetes', text: 'Do you have diabetes?', type: 'checkbox' },
       { id: 'diabetes_a1c', text: 'If yes: What\'s your hemoglobin A1C? What do your blood sugars run?', type: 'text' },
-      { id: 'diabetes_insulin', text: 'Do you give yourself insulin shots or just take pills?', type: 'text' },
+      { id: 'diabetes_insulin', text: 'Do you give yourself insulin shots or just take pills?', type: 'select', options: ['Diet controlled', 'Oral medications only', 'Insulin only', 'Insulin + oral medications'] },
       { id: 'smoking_current', text: 'Do you smoke?', type: 'checkbox' },
       { id: 'smoking_history', text: 'Have you ever smoked?', type: 'checkbox' },
-      { id: 'smoking_details', text: 'If yes: Pack-years, when quit', type: 'text' }
+      { id: 'smoking_details', text: 'If yes: Pack-years, when quit', type: 'text', placeholder: 'Pack-years, when quit' }
     ]
   },
   surgical: {
@@ -59,7 +59,7 @@ export const universalQuestions = {
       { id: 'all_medications', text: 'Document all current medications', type: 'text' },
       { id: 'aspirin', text: 'Are you taking aspirin?', type: 'checkbox' },
       { id: 'plavix', text: 'Are you on Plavix (clopidogrel)?', type: 'checkbox' },
-      { id: 'anticoagulation', text: 'Are you on any blood thinners like Coumadin or Eliquis?', type: 'text' },
+      { id: 'anticoagulation', text: 'Are you on any blood thinners like Coumadin or Eliquis?', type: 'select', options: ['None', 'Coumadin (Warfarin)', 'Eliquis (Apixaban)', 'Xarelto (Rivaroxaban)', 'Pradaxa (Dabigatran)', 'Lovenox (Enoxaparin)', 'Other'] },
       { id: 'statins', text: 'Are you on a cholesterol medicine?', type: 'checkbox' },
       { id: 'allergies', text: 'Document any medication allergies or side effects', type: 'text' }
     ]
@@ -76,7 +76,7 @@ export const conditionSpecificQuestions = {
         questions: [
           { id: 'leg_pain_walking', text: 'Do you get leg pain when you walk?', type: 'checkbox' },
           { id: 'walking_distance', text: 'How far can you walk before it bothers you? (distance in blocks/feet)', type: 'text' },
-          { id: 'pain_location', text: 'Where does it hurt? (calf, thigh, buttock, foot)', type: 'text' },
+          { id: 'pain_location', text: 'Where does it hurt?', type: 'multiselect', options: ['Calf', 'Thigh', 'Buttock', 'Foot', 'Hip'] },
           { id: 'pain_relief', text: 'Does it go away when you stop walking?', type: 'checkbox' },
           { id: 'relief_time', text: 'How long does it take to go away when you rest?', type: 'text' }
         ]
@@ -107,7 +107,7 @@ export const conditionSpecificQuestions = {
         title: 'Swelling',
         questions: [
           { id: 'leg_swelling', text: 'Do you have swelling in your legs/ankles?', type: 'checkbox' },
-          { id: 'swelling_bilateral', text: 'Unilateral or bilateral?', type: 'text' },
+          { id: 'swelling_bilateral', text: 'Which leg(s) are affected?', type: 'select', options: ['Left only', 'Right only', 'Both legs'] },
           { id: 'swelling_timing', text: 'Is it worse at the end of the day?', type: 'checkbox' },
           { id: 'elevation_helps', text: 'Does it get better when you elevate your legs?', type: 'checkbox' }
         ]
@@ -116,7 +116,7 @@ export const conditionSpecificQuestions = {
         title: 'Pain/Discomfort',
         questions: [
           { id: 'legs_heavy', text: 'Do your legs feel heavy or achy?', type: 'checkbox' },
-          { id: 'symptom_timing', text: 'When do they bother you most? (afternoon/evening)', type: 'text' },
+          { id: 'symptom_timing', text: 'When do they bother you most?', type: 'multiselect', options: ['Morning', 'Afternoon', 'Evening', 'All day', 'After standing'] },
           { id: 'night_pain', text: 'Do you have pain at night?', type: 'checkbox' }
         ]
       },
@@ -140,7 +140,7 @@ export const conditionSpecificQuestions = {
         title: 'Compression Therapy',
         questions: [
           { id: 'wears_compression', text: 'Are you wearing compression socks?', type: 'checkbox' },
-          { id: 'compression_compliance', text: 'If yes: Are you doing a good job wearing them?', type: 'text' }
+          { id: 'compression_compliance', text: 'If yes: How often do you wear them?', type: 'select', options: ['Every day', 'Most days', 'Sometimes', 'Rarely', 'Never'] }
         ]
       }
     }
@@ -175,7 +175,7 @@ export const conditionSpecificQuestions = {
         questions: [
           { id: 'wound_location', text: 'Location of wound(s)', type: 'text' },
           { id: 'wound_duration', text: 'How long have you had this wound?', type: 'text' },
-          { id: 'wound_cause', text: 'How did it start? (trauma, spontaneous, pressure)', type: 'text' },
+          { id: 'wound_cause', text: 'How did it start?', type: 'multiselect', options: ['Trauma', 'Spontaneous', 'Pressure', 'Surgical', 'Unknown'] },
           { id: 'wound_characteristics', text: 'Size, depth, appearance', type: 'text' },
           { id: 'wound_drainage', text: 'Drainage, odor, signs of infection', type: 'text' },
           { id: 'exposed_structures', text: 'Exposed bone or tendon', type: 'checkbox' }
@@ -211,8 +211,8 @@ export const conditionSpecificQuestions = {
         questions: [
           { id: 'on_dialysis', text: 'Are you on dialysis?', type: 'checkbox' },
           { id: 'dialysis_duration', text: 'How long have you been on dialysis?', type: 'text' },
-          { id: 'access_type', text: 'Current access type (AV fistula / AV graft / Tunneled catheter)', type: 'text' },
-          { id: 'access_location', text: 'Where is your access? (arm, location)', type: 'text' },
+          { id: 'access_type', text: 'Current access type', type: 'select', options: ['AV Fistula', 'AV Graft', 'Tunneled Catheter', 'Permacath'] },
+          { id: 'access_location', text: 'Where is your access?', type: 'select', options: ['Left forearm', 'Right forearm', 'Left upper arm', 'Right upper arm', 'Left chest', 'Right chest'] },
           { id: 'previous_access', text: 'Previous access history (failed access, infections)', type: 'text' }
         ]
       },
@@ -267,7 +267,7 @@ export const conditionSpecificQuestions = {
           { id: 'dvt_history', text: 'Have you ever had blood clots in your legs?', type: 'checkbox' },
           { id: 'pe_history', text: 'Have you ever had a pulmonary embolism (blood clot in the lung)?', type: 'checkbox' },
           { id: 'event_timing', text: 'When did it occur?', type: 'text' },
-          { id: 'provoked', text: 'Provoked (surgery, trauma, immobility) vs unprovoked?', type: 'text' },
+          { id: 'provoked', text: 'Was this event provoked or unprovoked?', type: 'select', options: ['Provoked (surgery/trauma/immobility)', 'Unprovoked', 'Unknown'] },
           { id: 'anticoagulation_history', text: 'Were you on blood thinners? For how long?', type: 'text' }
         ]
       },
@@ -275,7 +275,7 @@ export const conditionSpecificQuestions = {
         title: 'Current Anticoagulation',
         questions: [
           { id: 'current_anticoagulation', text: 'Are you currently on blood thinners?', type: 'checkbox' },
-          { id: 'anticoagulation_type', text: 'Type (warfarin, Eliquis, Xarelto, etc.)', type: 'text' },
+          { id: 'anticoagulation_type', text: 'Which blood thinner?', type: 'select', options: ['None', 'Coumadin (Warfarin)', 'Eliquis (Apixaban)', 'Xarelto (Rivaroxaban)', 'Pradaxa (Dabigatran)', 'Lovenox (Enoxaparin)', 'Other'] },
           { id: 'duration_planned', text: 'Duration planned', type: 'text' },
           { id: 'bleeding_complications', text: 'Any bleeding complications', type: 'text' }
         ]

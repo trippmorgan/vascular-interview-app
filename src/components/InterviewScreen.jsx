@@ -15,13 +15,19 @@ function InterviewScreen({ patientType, onBack, interviewData, setInterviewData 
   const [clinicalScores, setClinicalScores] = useState({});
 
   // Flatten interviewData for scoring/note components
-  // interviewData is { questionId: { checked: bool, text: string } }
+  // interviewData is { questionId: { checked?, text?, value?, values? } }
   // scoring/note expects { questionId: value }
   const flatAnswers = useMemo(() => {
     const flat = {};
     Object.entries(interviewData).forEach(([key, val]) => {
       if (val?.checked) flat[key] = true;
       if (val?.text) flat[key] = val.text;
+      // select / yesno
+      if (val?.value != null) flat[key] = val.value;
+      // multiselect — join to readable string
+      if (Array.isArray(val?.values) && val.values.length > 0) {
+        flat[key] = val.values.join(', ');
+      }
     });
     return flat;
   }, [interviewData]);
@@ -34,13 +40,17 @@ function InterviewScreen({ patientType, onBack, interviewData, setInterviewData 
     let totalQuestions = 0;
     let answeredQuestions = 0;
 
+    const isAnswered = (qId) => {
+      const v = interviewData[qId];
+      if (!v) return false;
+      return v.checked || !!v.text || v.value != null || (Array.isArray(v.values) && v.values.length > 0);
+    };
+
     // Count universal questions
     Object.values(universalQuestions).forEach(section => {
       section.questions.forEach(q => {
         totalQuestions++;
-        if (interviewData[q.id]?.checked || interviewData[q.id]?.text) {
-          answeredQuestions++;
-        }
+        if (isAnswered(q.id)) answeredQuestions++;
       });
     });
 
@@ -49,9 +59,7 @@ function InterviewScreen({ patientType, onBack, interviewData, setInterviewData 
       Object.values(conditionData.sections).forEach(section => {
         section.questions.forEach(q => {
           totalQuestions++;
-          if (interviewData[q.id]?.checked || interviewData[q.id]?.text) {
-            answeredQuestions++;
-          }
+          if (isAnswered(q.id)) answeredQuestions++;
         });
       });
     }

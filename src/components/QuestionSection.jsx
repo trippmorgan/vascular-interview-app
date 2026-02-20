@@ -146,14 +146,14 @@ function QuestionField({ question, value, onChange }) {
 function QuestionSection({ sectionId, title, questions, interviewData, onQuestionChange, expanded, onToggle }) {
   return (
     <div className="border border-gray-200 rounded-lg overflow-hidden">
-      {/* Section Header */}
+      {/* Section Header — large tap target for mobile */}
       <button
         onClick={onToggle}
-        className="w-full flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 transition-colors min-h-[60px]"
+        className="w-full flex items-center justify-between px-4 py-4 bg-gray-50 hover:bg-gray-100 active:bg-gray-200 transition-colors min-h-[56px]"
       >
-        <h3 className="text-lg font-semibold text-gray-800">{title}</h3>
+        <h3 className="text-base md:text-lg font-semibold text-gray-800 text-left">{title}</h3>
         <svg
-          className={`w-6 h-6 text-gray-600 transition-transform ${expanded ? 'rotate-180' : ''}`}
+          className={`w-7 h-7 text-gray-600 transition-transform flex-shrink-0 ml-2 ${expanded ? 'rotate-180' : ''}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"

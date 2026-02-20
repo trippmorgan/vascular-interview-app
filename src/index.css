@@ -1,5 +1,37 @@
 @import "tailwindcss";
 
+/* ── Mobile-first global resets ─────────────────────────────────────────── */
+
+/* Prevent elastic bounce on iOS */
+html, body {
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Safe-area padding for notched iPhones */
+body {
+  padding-top: env(safe-area-inset-top);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Prevent iOS zoom on input focus (must be >=16px) */
+input, textarea, select {
+  font-size: 16px !important;
+}
+
+/* Ensure all interactive elements meet 44px minimum */
+button, a, [role="button"], [role="switch"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Smooth scrolling for scroll containers */
+.scroll-touch {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+}
+
 /* Custom styles for medical UI */
 @layer components {
   .btn-primary {
@@ -15,10 +47,21 @@
   }
   
   .input-field {
-    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent min-h-[44px];
+    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent min-h-[44px];
+    font-size: 16px !important;
   }
   
   .checkbox-large {
     @apply w-6 h-6 text-blue-600 rounded focus:ring-2 focus:ring-blue-500;
   }
+}
+
+/* Hide scrollbar but keep scrolling */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Print styles ──────────────────────────────────────────────────────── */
+@media print {
+  header, nav, .no-print { display: none !important; }
+  .card { box-shadow: none; border: 1px solid #ddd; }
 }

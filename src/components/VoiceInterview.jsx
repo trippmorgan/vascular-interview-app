@@ -162,7 +162,7 @@ function VoiceInterview({ onAutoFill, onClose, patientType, selectedConditions =
   // Minimized floating pill
   if (minimized) {
     return (
-      <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2">
+      <div className="fixed right-4 z-50 flex items-center gap-2" style={{ bottom: 'max(16px, env(safe-area-inset-bottom))' }}>
         <button
           onClick={() => setMinimized(false)}
           className="flex items-center gap-2 px-4 py-3 bg-blue-900 text-white rounded-full shadow-xl hover:bg-blue-800 transition-all min-h-[48px]"
@@ -182,8 +182,8 @@ function VoiceInterview({ onAutoFill, onClose, patientType, selectedConditions =
 
   // Bottom sheet (not blocking — slides up from bottom)
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 animate-slideUp">
-      <div className="bg-white rounded-t-2xl shadow-2xl border-t border-gray-200 max-h-[70vh] overflow-y-auto">
+    <div className="fixed bottom-0 left-0 right-0 z-50 animate-slideUp" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+      <div className="bg-white rounded-t-2xl shadow-2xl border-t border-gray-200 max-h-[70vh] overflow-y-auto" style={{ WebkitOverflowScrolling: 'touch' }}>
         {/* Handle bar + Header */}
         <div className="sticky top-0 bg-blue-900 text-white rounded-t-2xl">
           <div className="flex justify-center pt-2"><div className="w-10 h-1 bg-white/30 rounded-full" /></div>

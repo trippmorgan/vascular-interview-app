@@ -109,11 +109,11 @@ function RutherfordDisplay({ autoCategory, manual, onManualChange }) {
             key={c.category}
             onClick={() => onManualChange(c.category)}
             style={{
-              padding: '4px 10px',
+              padding: '8px 14px',
               border: value === c.category ? '2px solid #3182ce' : '1px solid #e2e8f0',
               borderRadius: 6,
               background: value === c.category ? '#ebf8ff' : 'white',
-              fontSize: 12,
+              fontSize: 13,
               cursor: 'pointer',
               fontWeight: value === c.category ? 'bold' : 'normal'
             }}
@@ -123,7 +123,7 @@ function RutherfordDisplay({ autoCategory, manual, onManualChange }) {
         ))}
       </div>
       {cat && (
-        <p style={{ fontSize: 12, color: '#4a5568', margin: 0 }}>
+        <p style={{ fontSize: 13, color: '#4a5568', margin: 0 }}>
           <strong>Grade {cat.grade}, Category {cat.category}:</strong> {cat.description}
         </p>
       )}
@@ -154,7 +154,7 @@ function WifiDisplay({ answers, manual, onManualChange }) {
         const current = key === 'w' ? w : key === 'i' ? i : fi;
         return (
           <div key={comp} style={{ marginBottom: 8 }}>
-            <label style={{ fontSize: 12, fontWeight: 'bold', color: '#4a5568' }}>
+            <label style={{ fontSize: 13, fontWeight: 'bold', color: '#4a5568' }}>
               {WIFI.components[comp].label}:
             </label>
             <div style={{ display: 'flex', gap: 4, marginTop: 2 }}>
@@ -164,11 +164,11 @@ function WifiDisplay({ answers, manual, onManualChange }) {
                   onClick={() => updateScore(key, g.grade)}
                   title={g.description}
                   style={{
-                    padding: '2px 8px',
+                    padding: '8px 12px',
                     border: current === g.grade ? '2px solid #3182ce' : '1px solid #e2e8f0',
                     borderRadius: 4,
                     background: current === g.grade ? '#ebf8ff' : 'white',
-                    fontSize: 11,
+                    fontSize: 13,
                     cursor: 'pointer'
                   }}
                 >
@@ -179,7 +179,7 @@ function WifiDisplay({ answers, manual, onManualChange }) {
           </div>
         );
       })}
-      <p style={{ fontSize: 12, margin: '8px 0 0', padding: 6, background: '#fff5f5', borderRadius: 4 }}>
+      <p style={{ fontSize: 13, margin: '8px 0 0', padding: 6, background: '#fff5f5', borderRadius: 4 }}>
         <strong>WIfI {w}-{i}-{fi}</strong> | Amputation Risk: <strong>{risk}</strong> | Revasc Benefit: <strong>{revasc}</strong>
       </p>
     </div>
@@ -197,11 +197,11 @@ function CeapDisplay({ autoClass, manual, onManualChange }) {
           onClick={() => onManualChange(c.class)}
           title={c.description}
           style={{
-            padding: '4px 10px',
+            padding: '8px 14px',
             border: value === c.class ? '2px solid #3182ce' : '1px solid #e2e8f0',
             borderRadius: 6,
             background: value === c.class ? '#ebf8ff' : 'white',
-            fontSize: 12,
+            fontSize: 13,
             cursor: 'pointer',
             fontWeight: value === c.class ? 'bold' : 'normal'
           }}
@@ -209,7 +209,7 @@ function CeapDisplay({ autoClass, manual, onManualChange }) {
           {c.class}
         </button>
       ))}
-      <p style={{ width: '100%', fontSize: 12, color: '#4a5568', margin: '4px 0 0' }}>
+      <p style={{ width: '100%', fontSize: 13, color: '#4a5568', margin: '4px 0 0' }}>
         {CEAP.clinical.find(c => c.class === value)?.description}
       </p>
     </div>
@@ -227,11 +227,11 @@ function WagnerDisplay({ autoGrade, manual, onManualChange }) {
           onClick={() => onManualChange(g.grade)}
           title={g.description}
           style={{
-            padding: '4px 10px',
+            padding: '8px 14px',
             border: value === g.grade ? '2px solid #3182ce' : '1px solid #e2e8f0',
             borderRadius: 6,
             background: value === g.grade ? '#ebf8ff' : 'white',
-            fontSize: 12,
+            fontSize: 13,
             cursor: 'pointer'
           }}
         >
@@ -239,7 +239,7 @@ function WagnerDisplay({ autoGrade, manual, onManualChange }) {
         </button>
       ))}
       {value !== undefined && (
-        <p style={{ width: '100%', fontSize: 12, color: '#4a5568', margin: '4px 0 0' }}>
+        <p style={{ width: '100%', fontSize: 13, color: '#4a5568', margin: '4px 0 0' }}>
           {WAGNER.grades[value]?.description}
         </p>
       )}
@@ -264,7 +264,7 @@ function AbiDisplay({ manual, onManualChange }) {
     <div>
       <div style={{ display: 'flex', gap: 12 }}>
         <div>
-          <label style={{ fontSize: 11, color: '#4a5568' }}>Right ABI:</label>
+          <label style={{ fontSize: 13, color: '#4a5568' }}>Right ABI:</label>
           <input
             type="number"
             step="0.01"
@@ -272,10 +272,10 @@ function AbiDisplay({ manual, onManualChange }) {
             onChange={e => handleChange('right', e.target.value)}
             style={{ width: 70, padding: 4, marginLeft: 4, borderRadius: 4, border: '1px solid #e2e8f0', fontSize: 13 }}
           />
-          {rightInterp && <span style={{ fontSize: 11, marginLeft: 4, color: '#4a5568' }}>{rightInterp.interpretation}</span>}
+          {rightInterp && <span style={{ fontSize: 13, marginLeft: 4, color: '#4a5568' }}>{rightInterp.interpretation}</span>}
         </div>
         <div>
-          <label style={{ fontSize: 11, color: '#4a5568' }}>Left ABI:</label>
+          <label style={{ fontSize: 13, color: '#4a5568' }}>Left ABI:</label>
           <input
             type="number"
             step="0.01"
@@ -283,7 +283,7 @@ function AbiDisplay({ manual, onManualChange }) {
             onChange={e => handleChange('left', e.target.value)}
             style={{ width: 70, padding: 4, marginLeft: 4, borderRadius: 4, border: '1px solid #e2e8f0', fontSize: 13 }}
           />
-          {leftInterp && <span style={{ fontSize: 11, marginLeft: 4, color: '#4a5568' }}>{leftInterp.interpretation}</span>}
+          {leftInterp && <span style={{ fontSize: 13, marginLeft: 4, color: '#4a5568' }}>{leftInterp.interpretation}</span>}
         </div>
       </div>
     </div>
@@ -301,11 +301,11 @@ function CarotidDisplay({ manual, onManualChange }) {
             key={g.range}
             onClick={() => onManualChange(g.range)}
             style={{
-              padding: '4px 10px',
+              padding: '8px 14px',
               border: value === g.range ? '2px solid #3182ce' : '1px solid #e2e8f0',
               borderRadius: 6,
               background: value === g.range ? '#ebf8ff' : 'white',
-              fontSize: 12,
+              fontSize: 13,
               cursor: 'pointer'
             }}
           >
@@ -314,7 +314,7 @@ function CarotidDisplay({ manual, onManualChange }) {
         ))}
       </div>
       {value && (
-        <p style={{ fontSize: 12, color: '#4a5568', margin: '4px 0 0' }}>
+        <p style={{ fontSize: 13, color: '#4a5568', margin: '4px 0 0' }}>
           {CAROTID_GRADING.grades.find(g => g.range === value)?.recommendation}
         </p>
       )}
@@ -335,23 +335,26 @@ function NihssDisplay({ manual, onManualChange }) {
 
   return (
     <div>
-      <div style={{ maxHeight: '400px', overflowY: 'auto', border: '1px solid #e2e8f0', borderRadius: 4, padding: 8, marginBottom: 8 }}>
+      {/* No scroll container — items flow naturally in the page */}
+      <div style={{ borderRadius: 4, padding: 8, marginBottom: 8 }}>
         {NIHSS.items.map(item => (
-          <div key={item.id} style={{ marginBottom: 12 }}>
-            <div style={{ fontSize: 12, fontWeight: 'bold', color: '#2d3748', marginBottom: 4 }}>{item.label}</div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+          <div key={item.id} style={{ marginBottom: 16, paddingBottom: 12, borderBottom: '1px solid #e2e8f0' }}>
+            <div style={{ fontSize: 14, fontWeight: 'bold', color: '#2d3748', marginBottom: 8 }}>{item.label}</div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
               {item.options.map(opt => (
                 <button 
                   key={opt.v}
                   onClick={() => update(item.id, opt.v)}
                   style={{
-                    padding: '2px 8px',
+                    padding: '8px 12px',
                     border: scores[item.id] === opt.v ? '2px solid #3182ce' : '1px solid #e2e8f0',
-                    borderRadius: 4,
+                    borderRadius: 8,
                     background: scores[item.id] === opt.v ? '#ebf8ff' : 'white',
-                    fontSize: 11,
+                    fontSize: 13,
                     cursor: 'pointer',
-                    textAlign: 'left'
+                    textAlign: 'left',
+                    minHeight: 44,
+                    minWidth: 44,
                   }}
                 >
                   <span style={{ fontWeight: 'bold' }}>{opt.v}</span>: {opt.l}
@@ -361,9 +364,12 @@ function NihssDisplay({ manual, onManualChange }) {
           </div>
         ))}
       </div>
-      <p style={{ fontSize: 13, margin: 0, padding: 8, background: '#fff5f5', borderRadius: 4, fontWeight: 'bold', color: '#2d3748' }}>
-        Total Score: {total} — {interp}
-      </p>
+      {/* Sticky total score */}
+      <div style={{ position: 'sticky', bottom: 0, zIndex: 5 }}>
+        <p style={{ fontSize: 15, margin: 0, padding: 12, background: '#fff5f5', borderRadius: 8, fontWeight: 'bold', color: '#2d3748', boxShadow: '0 -2px 8px rgba(0,0,0,0.1)' }}>
+          Total Score: {total} — {interp}
+        </p>
+      </div>
     </div>
   );
 }
@@ -375,14 +381,14 @@ function DiabeticRiskDisplay({ autoResult, answers, manual, onManualChange }) {
     <div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
         {DIABETIC_FOOT_RISK.factors.map(f => (
-          <label key={f.id} style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, padding: '2px 6px', background: answers?.[f.id] ? '#ebf8ff' : '#f7fafc', borderRadius: 4, border: '1px solid #e2e8f0' }}>
+          <label key={f.id} style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 13, padding: '2px 6px', background: answers?.[f.id] ? '#ebf8ff' : '#f7fafc', borderRadius: 4, border: '1px solid #e2e8f0' }}>
             <input type="checkbox" checked={!!answers?.[f.id]} readOnly />
             {f.label} (+{f.points})
           </label>
         ))}
       </div>
       {result.risk && (
-        <p style={{ fontSize: 12, margin: '8px 0 0', padding: 6, background: '#fff5f5', borderRadius: 4 }}>
+        <p style={{ fontSize: 13, margin: '8px 0 0', padding: 6, background: '#fff5f5', borderRadius: 4 }}>
           <strong>Score: {result.score}</strong> | Risk: <strong>{result.risk.level}</strong> | {result.risk.followUp}
         </p>
       )}

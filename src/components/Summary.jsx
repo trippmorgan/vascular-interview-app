@@ -169,26 +169,26 @@ function Summary({ patientType, selectedConditions = [], interviewData }) {
 
   return (
     <div className="space-y-6">
-      {/* Action Buttons */}
-      <div className="card">
-        <div className="flex flex-wrap gap-4 justify-center">
+      {/* Action Buttons — prominent, full-width on mobile */}
+      <div className="card no-print">
+        <div className="grid grid-cols-2 gap-3">
           <button
             onClick={handleCopyToClipboard}
             disabled={!hasData}
-            className={`btn-primary flex items-center space-x-2 ${!hasData && 'opacity-50 cursor-not-allowed'}`}
+            className={`btn-primary flex items-center justify-center gap-2 text-lg py-4 min-h-[56px] ${!hasData && 'opacity-50 cursor-not-allowed'}`}
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
             </svg>
-            <span>Copy to Clipboard</span>
+            <span>Copy</span>
           </button>
 
           <button
             onClick={handlePrint}
             disabled={!hasData}
-            className={`btn-secondary flex items-center space-x-2 ${!hasData && 'opacity-50 cursor-not-allowed'}`}
+            className={`btn-secondary flex items-center justify-center gap-2 text-lg py-4 min-h-[56px] ${!hasData && 'opacity-50 cursor-not-allowed'}`}
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
             </svg>
             <span>Print</span>

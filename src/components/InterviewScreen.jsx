@@ -133,93 +133,87 @@ function InterviewScreen({ patientType, selectedConditions = [], onBack, intervi
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Header */}
-      <header className="bg-blue-900 text-white shadow-lg sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-4">
+      {/* Compact Header */}
+      <header className="bg-blue-900 text-white shadow-lg sticky top-0 z-20" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
+        <div className="max-w-7xl mx-auto px-3 py-2">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 min-w-0 flex-1">
               <button
                 onClick={onBack}
-                className="text-white hover:text-blue-200 transition-colors p-2 min-h-[44px] min-w-[44px] flex items-center justify-center"
+                className="text-white hover:text-blue-200 transition-colors p-2 min-h-[44px] min-w-[44px] flex items-center justify-center flex-shrink-0"
                 aria-label="Back"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
-              <div>
-                <div className="flex flex-wrap items-center gap-2">
-                  {conditionChips.map(pt => (
-                    <span key={pt.id} className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/20 text-sm font-medium">
-                      {pt.icon} {pt.name.split('(')[0]?.trim() || pt.name}
-                    </span>
-                  ))}
-                </div>
-                {conditions.length === 1 && conditionSpecificQuestions[conditions[0]] && (
-                  <p className="text-blue-200 text-sm mt-1">{conditionSpecificQuestions[conditions[0]].description}</p>
-                )}
+              {/* Condition chips — compact, horizontally scrollable */}
+              <div className="flex items-center gap-1.5 overflow-x-auto min-w-0 flex-1 no-scrollbar">
+                {conditionChips.map(pt => (
+                  <span key={pt.id} className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/20 text-xs font-medium whitespace-nowrap flex-shrink-0">
+                    {pt.icon} {pt.name.split('(')[0]?.trim() || pt.name}
+                  </span>
+                ))}
               </div>
+              {/* Slim progress indicator */}
+              <span className="text-xs text-blue-200 font-mono flex-shrink-0">{progress}%</span>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center gap-1 flex-shrink-0">
               <button
                 onClick={() => setShowVoiceInterview(true)}
-                className="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-sm transition-colors min-h-[44px] gap-2"
+                className="inline-flex items-center justify-center w-11 h-11 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
                 title="Voice Interview"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" />
                   <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z" />
                 </svg>
-                Voice
               </button>
               <a
                 href="https://app.plaud.ai"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg text-sm transition-colors"
+                className="inline-flex items-center justify-center w-11 h-11 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors"
+                title="PLAUD AI"
               >
-                🎙️ PLAUD AI
+                🎙️
               </a>
               <button
                 onClick={() => setShowQuickRef(!showQuickRef)}
-                className="btn-secondary text-sm"
+                className="inline-flex items-center justify-center w-11 h-11 bg-blue-700 hover:bg-blue-600 text-white rounded-lg transition-colors text-xs font-medium"
+                title="Quick Reference"
               >
-                Quick Ref
+                Ref
               </button>
             </div>
           </div>
-
-          {/* Progress Bar */}
-          <div className="bg-blue-800 rounded-full h-3 overflow-hidden">
-            <div
-              className="bg-green-400 h-full transition-all duration-300"
-              style={{ width: `${progress}%` }}
-            />
+          {/* Slim progress bar */}
+          <div className="bg-blue-800 rounded-full h-1.5 overflow-hidden mt-1.5">
+            <div className="bg-green-400 h-full transition-all duration-300" style={{ width: `${progress}%` }} />
           </div>
-          <p className="text-blue-200 text-sm mt-1">Overall Progress: {progress}%</p>
+        </div>
+
+        {/* Tabs — inside header so they're always sticky together */}
+        <div className="bg-white border-b border-gray-200">
+          <div className="max-w-7xl mx-auto px-2">
+            <div className="flex overflow-x-auto no-scrollbar" style={{ WebkitOverflowScrolling: 'touch' }}>
+              {['interview', 'physical', 'scoring', 'summary', 'coding', 'note', 'editor'].map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={`px-4 py-2.5 font-medium capitalize transition-colors min-h-[44px] whitespace-nowrap text-sm flex-shrink-0 ${
+                    activeTab === tab
+                      ? 'text-blue-600 border-b-2 border-blue-600'
+                      : 'text-gray-600 hover:text-gray-800'
+                  }`}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </header>
-
-      {/* Main Tabs */}
-      <div className="bg-white border-b border-gray-200 sticky top-[120px] z-10">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex space-x-1 overflow-x-auto">
-            {['interview', 'physical', 'scoring', 'summary', 'coding', 'note', 'editor'].map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`px-6 py-3 font-medium capitalize transition-colors min-h-[44px] whitespace-nowrap ${
-                  activeTab === tab
-                    ? 'text-blue-600 border-b-2 border-blue-600'
-                    : 'text-gray-600 hover:text-gray-800'
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
 
       {/* Main Content */}
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-6">

@@ -122,22 +122,22 @@ function LandingScreen({ onStartInterview }) {
             </div>
           </div>
 
-          {/* Start Button */}
-          <div className="mt-8 text-center">
-            <button
-              onClick={() => onStartInterview(selected)}
-              disabled={selected.length === 0}
-              className={`px-8 py-4 rounded-xl font-bold text-xl transition-all duration-200 shadow-md ${
-                selected.length > 0
-                  ? 'bg-blue-600 hover:bg-blue-700 text-white hover:shadow-lg'
-                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-              }`}
-            >
-              {selected.length === 0
-                ? 'Select at least one condition'
-                : `Start Interview (${selected.length} condition${selected.length > 1 ? 's' : ''})`}
-            </button>
-          </div>
+        </div>
+        {/* Sticky Start Button at bottom on mobile */}
+        <div className="sticky bottom-0 left-0 right-0 p-4 bg-white/95 backdrop-blur border-t border-gray-200 md:relative md:border-0 md:bg-transparent md:backdrop-blur-none md:mt-8 md:text-center" style={{ paddingBottom: 'max(16px, env(safe-area-inset-bottom))' }}>
+          <button
+            onClick={() => onStartInterview(selected)}
+            disabled={selected.length === 0}
+            className={`w-full md:w-auto px-8 py-4 rounded-xl font-bold text-xl transition-all duration-200 shadow-md min-h-[56px] ${
+              selected.length > 0
+                ? 'bg-blue-600 hover:bg-blue-700 text-white hover:shadow-lg'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            }`}
+          >
+            {selected.length === 0
+              ? 'Select at least one condition'
+              : `Start Interview (${selected.length} condition${selected.length > 1 ? 's' : ''})`}
+          </button>
         </div>
 
         {/* PLAUD AI Link */}

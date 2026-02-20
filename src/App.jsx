@@ -22,7 +22,7 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100">
       {!selectedPatientTypes ? (
-        <LandingScreen onSelectPatientType={handlePatientTypeSelect} />
+        <LandingScreen onStartInterview={handlePatientTypeSelect} />
       ) : (
         <InterviewScreen
           patientType={selectedPatientTypes[0]}

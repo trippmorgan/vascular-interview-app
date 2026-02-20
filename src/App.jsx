@@ -4,25 +4,29 @@ import InterviewScreen from './components/InterviewScreen';
 import './App.css';
 
 function App() {
-  const [selectedPatientType, setSelectedPatientType] = useState(null);
+  // Now an array of condition type ids (e.g. ['pad', 'carotid'])
+  const [selectedPatientTypes, setSelectedPatientTypes] = useState(null);
   const [interviewData, setInterviewData] = useState({});
 
-  const handlePatientTypeSelect = (typeId) => {
-    setSelectedPatientType(typeId);
+  const handlePatientTypeSelect = (typeIds) => {
+    // Accept both array (multi-select) and string (legacy single)
+    const types = Array.isArray(typeIds) ? typeIds : [typeIds];
+    setSelectedPatientTypes(types);
     setInterviewData({});
   };
 
   const handleBack = () => {
-    setSelectedPatientType(null);
+    setSelectedPatientTypes(null);
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100">
-      {!selectedPatientType ? (
+      {!selectedPatientTypes ? (
         <LandingScreen onSelectPatientType={handlePatientTypeSelect} />
       ) : (
         <InterviewScreen
-          patientType={selectedPatientType}
+          patientType={selectedPatientTypes[0]}
+          patientTypes={selectedPatientTypes}
           onBack={handleBack}
           interviewData={interviewData}
           setInterviewData={setInterviewData}

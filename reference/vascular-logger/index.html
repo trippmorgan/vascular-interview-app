@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vascular Procedure Logger</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Lower Extremity Procedure Log</h1>
+        <div class="diagram-container">
+            <!-- The image is linked to the clickable map below -->
+            <img src="/images/vascular_diagram.jpg" usemap="#vascular-map" alt="Vascular Diagram of Lower Extremities">
+            
+            <!-- Clickable zones on the image. Adjust coords to fit your image. -->
+            <map name="vascular-map">
+                <!-- Left Leg -->
+                <area shape="rect" coords="235,135,340,250" href="#" alt="Common Femoral" data-artery="Left Common Femoral">
+                <area shape="rect" coords="245,260,345,470" href="#" alt="Superficial Femoral" data-artery="Left Superficial Femoral">
+                <area shape="rect" coords="250,480,350,600" href="#" alt="Popliteal" data-artery="Left Popliteal">
+                <!-- Right Leg -->
+                <area shape="rect" coords="390,135,495,250" href="#" alt="Common Iliac" data-artery="Right Common Iliac">
+                <area shape="rect" coords="385,260,485,470" href="#" alt="Superficial Femoral" data-artery="Right Superficial Femoral">
+                <area shape="rect" coords="380,480,480,600" href="#" alt="Popliteal" data-artery="Right Popliteal">
+            </map>
+        </div>
+    </div>
+
+    <!-- The Modal (Pop-up Form) - Hidden by default -->
+    <div id="procedure-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">×</span>
+            <h2 id="modal-artery-name">Procedure Details</h2>
+            <form id="procedure-data-form">
+                <input type="hidden" id="artery-name" name="artery">
+
+                <label for="occlusion-length">Occlusion Length (cm):</label>
+                <input type="number" id="occlusion-length" name="occlusionLength">
+                
+                <label>Treatment:</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="treatment" value="Angioplasty"> Angioplasty (PTA)</label>
+                    <label><input type="checkbox" name="treatment" value="Stent"> Stent</label>
+                    <label><input type="checkbox" name="treatment" value="Atherectomy"> Atherectomy</label>
+                </div>
+                
+                <button type="submit">Save Procedure</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/main.js"></script>
+</body>
+</html>

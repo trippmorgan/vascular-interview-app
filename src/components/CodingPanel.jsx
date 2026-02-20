@@ -288,7 +288,7 @@ function CodingPanel({ patientType, patientTypes: conditionTypes = [patientType]
                         s={s}
                         isSelected={selectedICD10.has(s.code)}
                         onToggle={toggleICD10}
-                        accentColor="blue"
+                        type="icd10"
                       />
                     ))}
                   </div>
@@ -339,7 +339,7 @@ function CodingPanel({ patientType, patientTypes: conditionTypes = [patientType]
                         s={s}
                         isSelected={selectedCPT.has(s.code)}
                         onToggle={toggleCPT}
-                        accentColor="green"
+                        type="cpt"
                       />
                     ))}
                   </div>

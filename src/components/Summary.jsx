@@ -1,76 +1,83 @@
 import { patientTypes, universalQuestions, conditionSpecificQuestions } from '../data/interviewData';
 
-function Summary({ patientType, interviewData }) {
-  const patientTypeData = patientTypes.find(pt => pt.id === patientType);
-  const conditionData = conditionSpecificQuestions[patientType];
+function Summary({ patientType, selectedConditions = [], interviewData }) {
+  const conditions = selectedConditions.length > 0 ? selectedConditions : (patientType ? [patientType] : []);
 
   const generateSummaryText = () => {
     let summary = `VASCULAR SURGERY CLINICAL INTERVIEW\n`;
     summary += `Date: ${new Date().toLocaleDateString()}\n`;
-    summary += `Patient Type: ${patientTypeData?.name}\n\n`;
+    summary += `Conditions: ${conditions.map(c => {
+      const pt = patientTypes.find(t => t.id === c);
+      return pt ? pt.name : c;
+    }).join(', ')}\n\n`;
     summary += `================================================\n\n`;
+
+    const formatAnswer = (q) => {
+      const d = interviewData[q.id];
+      if (!d) return null;
+      const parts = [];
+      if (d.checked) parts.push(`☑ ${q.text}`);
+      if (d.text) parts.push(`  Notes: ${d.text}`);
+      if (d.value != null) parts.push(`  → ${d.value}`);
+      if (Array.isArray(d.values) && d.values.length > 0) parts.push(`  → ${d.values.join(', ')}`);
+      return parts.length > 0 ? parts.join('\n') : null;
+    };
+
+    const hasAnswer = (q) => {
+      const d = interviewData[q.id];
+      if (!d) return false;
+      return d.checked || !!d.text || d.value != null || (Array.isArray(d.values) && d.values.length > 0);
+    };
 
     // Universal Questions
     summary += `UNIVERSAL HISTORY\n`;
     summary += `================================================\n\n`;
-    
+
     Object.entries(universalQuestions).forEach(([key, section]) => {
-      const answeredQuestions = section.questions.filter(q => 
-        interviewData[q.id]?.checked || interviewData[q.id]?.text
-      );
-      
-      if (answeredQuestions.length > 0) {
+      const answered = section.questions.filter(q => hasAnswer(q));
+      if (answered.length > 0) {
         summary += `${section.title}\n`;
         summary += `-`.repeat(section.title.length) + `\n`;
-        answeredQuestions.forEach(q => {
-          if (interviewData[q.id]?.checked) {
-            summary += `☑ ${q.text}\n`;
-          }
-          if (interviewData[q.id]?.text) {
-            summary += `  Notes: ${interviewData[q.id].text}\n`;
-          }
+        answered.forEach(q => {
+          const txt = formatAnswer(q);
+          if (txt) summary += txt + '\n';
         });
         summary += `\n`;
       }
     });
 
-    // Condition-Specific Questions
-    if (conditionData) {
-      summary += `\n${conditionData.name.toUpperCase()}\n`;
+    // Condition-Specific Questions — one section per condition
+    conditions.forEach(condId => {
+      const condData = conditionSpecificQuestions[condId];
+      if (!condData) return;
+
+      summary += `\n${condData.name.toUpperCase()}\n`;
       summary += `================================================\n\n`;
-      
-      Object.entries(conditionData.sections).forEach(([key, section]) => {
-        const answeredQuestions = section.questions.filter(q => 
-          interviewData[q.id]?.checked || interviewData[q.id]?.text
-        );
-        
-        if (answeredQuestions.length > 0) {
+
+      Object.entries(condData.sections).forEach(([key, section]) => {
+        const answered = section.questions.filter(q => hasAnswer(q));
+        if (answered.length > 0) {
           summary += `${section.title}\n`;
           summary += `-`.repeat(section.title.length) + `\n`;
-          answeredQuestions.forEach(q => {
-            if (interviewData[q.id]?.checked) {
-              summary += `☑ ${q.text}\n`;
-            }
-            if (interviewData[q.id]?.text) {
-              summary += `  Notes: ${interviewData[q.id].text}\n`;
-            }
+          answered.forEach(q => {
+            const txt = formatAnswer(q);
+            if (txt) summary += txt + '\n';
           });
           summary += `\n`;
         }
       });
-    }
+    });
 
     // Physical Exam
-    if (interviewData.pulses || interviewData.edema || interviewData.skin) {
+    if (interviewData.pulses || interviewData.edema || interviewData.skin ||
+        interviewData.carotidExam || interviewData.abdominalExam || interviewData.dialysisExam) {
       summary += `\nPHYSICAL EXAMINATION\n`;
       summary += `================================================\n\n`;
 
       if (interviewData.pulses) {
         summary += `Pulse Examination:\n`;
         Object.entries(interviewData.pulses).forEach(([key, value]) => {
-          if (value) {
-            summary += `  ${key.replace('_', ' ')}: ${value}\n`;
-          }
+          if (value) summary += `  ${key.replace('_', ' ')}: ${value}\n`;
         });
         summary += `\n`;
       }
@@ -83,17 +90,54 @@ function Summary({ patientType, interviewData }) {
 
       if (interviewData.skin) {
         const skinFindings = Object.entries(interviewData.skin)
-          .filter(([key, value]) => value)
+          .filter(([, value]) => value)
           .map(([key]) => key.replace(/_/g, ' '));
-        
         if (skinFindings.length > 0) {
           summary += `Skin Assessment:\n`;
-          skinFindings.forEach(finding => {
-            summary += `  ☑ ${finding}\n`;
-          });
+          skinFindings.forEach(f => summary += `  ☑ ${f}\n`);
+          summary += `\n`;
         }
       }
+
+      if (interviewData.carotidExam) {
+        summary += `Carotid Examination:\n`;
+        const ce = interviewData.carotidExam;
+        if (ce.carotid_bruit_left) summary += `  ☑ Left carotid bruit\n`;
+        if (ce.carotid_bruit_right) summary += `  ☑ Right carotid bruit\n`;
+        if (ce.neuro_notes) summary += `  Neuro: ${ce.neuro_notes}\n`;
+        summary += `\n`;
+      }
+
+      if (interviewData.abdominalExam) {
+        summary += `Abdominal Examination:\n`;
+        const ae = interviewData.abdominalExam;
+        if (ae.pulsatile_mass) summary += `  ☑ Pulsatile abdominal mass\n`;
+        if (ae.abdominal_tenderness) summary += `  ☑ Abdominal tenderness\n`;
+        if (ae.abdominal_bruit) summary += `  ☑ Abdominal bruit\n`;
+        if (ae.notes) summary += `  Notes: ${ae.notes}\n`;
+        summary += `\n`;
+      }
+
+      if (interviewData.dialysisExam) {
+        summary += `Dialysis Access Examination:\n`;
+        const de = interviewData.dialysisExam;
+        if (de.thrill_present) summary += `  ☑ Thrill present\n`;
+        if (de.bruit_present) summary += `  ☑ Bruit present\n`;
+        if (de.arm_edema) summary += `  ☑ Arm edema\n`;
+        if (de.erythema) summary += `  ☑ Erythema\n`;
+        if (de.notes) summary += `  Notes: ${de.notes}\n`;
+        summary += `\n`;
+      }
     }
+
+    // Assessment section
+    summary += `\nASSESSMENT\n`;
+    summary += `================================================\n`;
+    conditions.forEach(condId => {
+      const pt = patientTypes.find(t => t.id === condId);
+      if (pt) summary += `• ${pt.name}\n`;
+    });
+    summary += `\n`;
 
     return summary;
   };
@@ -121,7 +165,7 @@ function Summary({ patientType, interviewData }) {
   };
 
   const summaryText = generateSummaryText();
-  const hasData = summaryText.includes('☑');
+  const hasData = summaryText.includes('☑') || summaryText.includes('Notes:') || summaryText.includes('→');
 
   return (
     <div className="space-y-6">
@@ -138,7 +182,7 @@ function Summary({ patientType, interviewData }) {
             </svg>
             <span>Copy to Clipboard</span>
           </button>
-          
+
           <button
             onClick={handlePrint}
             disabled={!hasData}
@@ -155,7 +199,7 @@ function Summary({ patientType, interviewData }) {
       {/* Summary Display */}
       <div className="card">
         <h2 className="text-2xl font-bold text-gray-800 mb-4">Interview Summary</h2>
-        
+
         {hasData ? (
           <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
             <pre className="whitespace-pre-wrap font-mono text-sm text-gray-800">

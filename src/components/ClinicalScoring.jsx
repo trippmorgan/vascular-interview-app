@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { RUTHERFORD, WIFI, CEAP, WAGNER, CAROTID_GRADING, ABI_INTERPRETATION, DIABETIC_FOOT_RISK, getScoringForType } from '../data/clinicalScoring';
+import { RUTHERFORD, WIFI, CEAP, WAGNER, CAROTID_GRADING, NIHSS, ABI_INTERPRETATION, DIABETIC_FOOT_RISK, getScoringForType } from '../data/clinicalScoring';
 
 /**
  * Clinical Scoring Panel
@@ -82,6 +82,11 @@ function ScoringCard({ system, answers, manualValue, onManualChange }) {
       {/* Carotid */}
       {system === CAROTID_GRADING && (
         <CarotidDisplay manual={manualValue} onManualChange={onManualChange} />
+      )}
+
+      {/* NIHSS (Stroke Scale) */}
+      {system === NIHSS && (
+        <NihssDisplay manual={manualValue} onManualChange={onManualChange} />
       )}
 
       {/* Diabetic Foot Risk */}
@@ -313,6 +318,52 @@ function CarotidDisplay({ manual, onManualChange }) {
           {CAROTID_GRADING.grades.find(g => g.range === value)?.recommendation}
         </p>
       )}
+    </div>
+  );
+}
+
+function NihssDisplay({ manual, onManualChange }) {
+  const scores = manual || {}; // { '1a': 0, '1b': 1 ... }
+  
+  const update = (id, val) => {
+    const newScores = { ...scores, [id]: val };
+    onManualChange(newScores);
+  };
+  
+  const total = Object.values(scores).reduce((a, b) => a + (typeof b === 'number' ? b : 0), 0);
+  const interp = NIHSS.interpret(total);
+
+  return (
+    <div>
+      <div style={{ maxHeight: '400px', overflowY: 'auto', border: '1px solid #e2e8f0', borderRadius: 4, padding: 8, marginBottom: 8 }}>
+        {NIHSS.items.map(item => (
+          <div key={item.id} style={{ marginBottom: 12 }}>
+            <div style={{ fontSize: 12, fontWeight: 'bold', color: '#2d3748', marginBottom: 4 }}>{item.label}</div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+              {item.options.map(opt => (
+                <button 
+                  key={opt.v}
+                  onClick={() => update(item.id, opt.v)}
+                  style={{
+                    padding: '2px 8px',
+                    border: scores[item.id] === opt.v ? '2px solid #3182ce' : '1px solid #e2e8f0',
+                    borderRadius: 4,
+                    background: scores[item.id] === opt.v ? '#ebf8ff' : 'white',
+                    fontSize: 11,
+                    cursor: 'pointer',
+                    textAlign: 'left'
+                  }}
+                >
+                  <span style={{ fontWeight: 'bold' }}>{opt.v}</span>: {opt.l}
+                </button>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      <p style={{ fontSize: 13, margin: 0, padding: 8, background: '#fff5f5', borderRadius: 4, fontWeight: 'bold', color: '#2d3748' }}>
+        Total Score: {total} — {interp}
+      </p>
     </div>
   );
 }

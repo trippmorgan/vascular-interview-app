@@ -188,6 +188,35 @@ export const CAROTID_GRADING = {
   ]
 };
 
+// ─── NIH Stroke Scale (NIHSS) ────────────────────────────────────────
+export const NIHSS = {
+  name: 'NIH Stroke Scale (NIHSS)',
+  condition: 'carotid',
+  description: 'Primary tool to quantify neurological deficits pre/post-op.',
+  items: [
+    { id: '1a', label: '1a. LOC Responsiveness', options: [{ v: 0, l: 'Alert' }, { v: 1, l: 'Drowsy' }, { v: 2, l: 'Stuporous' }, { v: 3, l: 'Coma' }] },
+    { id: '1b', label: '1b. LOC Questions', options: [{ v: 0, l: 'Answers both correctly' }, { v: 1, l: 'Answers one correctly' }, { v: 2, l: 'Answers neither correctly' }] },
+    { id: '1c', label: '1c. LOC Commands', options: [{ v: 0, l: 'Performs both correctly' }, { v: 1, l: 'Performs one correctly' }, { v: 2, l: 'Performs neither correctly' }] },
+    { id: '2', label: '2. Best Gaze', options: [{ v: 0, l: 'Normal' }, { v: 1, l: 'Partial gaze palsy' }, { v: 2, l: 'Forced deviation' }] },
+    { id: '3', label: '3. Visual', options: [{ v: 0, l: 'No visual loss' }, { v: 1, l: 'Partial hemianopia' }, { v: 2, l: 'Complete hemianopia' }, { v: 3, l: 'Bilateral hemianopia' }] },
+    { id: '4', label: '4. Facial Palsy', options: [{ v: 0, l: 'Normal' }, { v: 1, l: 'Minor paralysis' }, { v: 2, l: 'Partial paralysis' }, { v: 3, l: 'Complete paralysis' }] },
+    { id: '5', label: '5. Motor Arm', options: [{ v: 0, l: 'No drift' }, { v: 1, l: 'Drift' }, { v: 2, l: 'Some effort against gravity' }, { v: 3, l: 'No effort against gravity' }, { v: 4, l: 'No movement' }] },
+    { id: '6', label: '6. Motor Leg', options: [{ v: 0, l: 'No drift' }, { v: 1, l: 'Drift' }, { v: 2, l: 'Some effort against gravity' }, { v: 3, l: 'No effort against gravity' }, { v: 4, l: 'No movement' }] },
+    { id: '7', label: '7. Limb Ataxia', options: [{ v: 0, l: 'Absent' }, { v: 1, l: 'Present in one limb' }, { v: 2, l: 'Present in two limbs' }] },
+    { id: '8', label: '8. Sensory', options: [{ v: 0, l: 'Normal' }, { v: 1, l: 'Mild-to-moderate loss' }, { v: 2, l: 'Severe to total loss' }] },
+    { id: '9', label: '9. Best Language', options: [{ v: 0, l: 'No aphasia' }, { v: 1, l: 'Mild-to-moderate aphasia' }, { v: 2, l: 'Severe aphasia' }, { v: 3, l: 'Mute/Global aphasia' }] },
+    { id: '10', label: '10. Dysarthria', options: [{ v: 0, l: 'Normal' }, { v: 1, l: 'Mild-to-moderate' }, { v: 2, l: 'Severe' }] },
+    { id: '11', label: '11. Extinction/Inattention', options: [{ v: 0, l: 'No abnormality' }, { v: 1, l: 'Visual/tactile/spatial inattention' }, { v: 2, l: 'Profound hemi-inattention' }] },
+  ],
+  interpret(score) {
+    if (score === 0) return 'No stroke symptoms';
+    if (score <= 4) return 'Minor stroke';
+    if (score <= 15) return 'Moderate stroke';
+    if (score <= 20) return 'Moderate to severe stroke';
+    return 'Severe stroke';
+  }
+};
+
 // ─── ABI Interpretation ──────────────────────────────────────────────
 export const ABI_INTERPRETATION = {
   name: 'Ankle-Brachial Index',
@@ -246,6 +275,7 @@ export const ALL_SCORING_SYSTEMS = {
   ceap: CEAP,
   wagner: WAGNER,
   carotidGrading: CAROTID_GRADING,
+  nihss: NIHSS,
   abi: ABI_INTERPRETATION,
   diabeticFootRisk: DIABETIC_FOOT_RISK,
 };
@@ -257,7 +287,7 @@ export function getScoringForType(patientType) {
   const map = {
     pad: ['rutherford', 'abi'],
     venous: ['ceap'],
-    carotid: ['carotidGrading'],
+    carotid: ['carotidGrading', 'nihss'],
     wound: ['wifi', 'wagner', 'diabeticFootRisk', 'abi'],
     dialysis: [],
     aaa: [],

@@ -2,8 +2,9 @@ import { useState } from 'react';
 import VoiceRecorder from './VoiceRecorder';
 
 const OLLAMA_URLS = [
-  'http://100.101.184.20:11434/v1/chat/completions',
-  'http://192.168.0.125:11434/v1/chat/completions',
+  'http://10.66.19.163:8888/api/chat',          // Office proxy (Precision)
+  'http://100.101.184.20:11434/v1/chat/completions',  // Direct Voldemort (Tailscale)
+  'http://192.168.0.125:11434/v1/chat/completions',   // Direct Voldemort (home LAN)
 ];
 
 const EXTRACTION_PROMPT = `You are a medical scribe AI. Extract structured clinical data from this dictated patient interview transcript. Return ONLY valid JSON with the following structure. Use empty strings for missing data, not null.

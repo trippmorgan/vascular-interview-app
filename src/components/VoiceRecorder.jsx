@@ -1,9 +1,10 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 
-// Dragon endpoints (only work over HTTP / same network)
-const DRAGON_URLS = [
-  'http://100.101.184.20:5005',
-  'http://192.168.0.125:5005',
+// Transcription endpoints — office proxy first, then direct Dragon
+const TRANSCRIBE_ENDPOINTS = [
+  'http://10.66.19.163:8888/api/transcribe',   // Office proxy (Precision)
+  'http://100.101.184.20:5005/transcribe',      // Direct Voldemort (Tailscale)
+  'http://192.168.0.125:5005/transcribe',       // Direct Voldemort (home LAN)
 ];
 
 // Detect if we can use Dragon (HTTP page) or must use Web Speech API (HTTPS page)
@@ -126,11 +127,11 @@ function VoiceRecorder({ onTranscription, compact = false }) {
     const formData = new FormData();
     formData.append('audio', blob, `recording.${ext}`);
     let lastErr = null;
-    for (const url of DRAGON_URLS) {
+    for (const endpoint of TRANSCRIBE_ENDPOINTS) {
       try {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 15000);
-        const response = await fetch(`${url}/transcribe`, { method: 'POST', body: formData, signal: controller.signal });
+        const response = await fetch(endpoint, { method: 'POST', body: formData, signal: controller.signal });
         clearTimeout(timeout);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();

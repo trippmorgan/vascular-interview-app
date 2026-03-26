@@ -281,6 +281,7 @@ Please generate preliminary technical findings for this vascular ultrasound exam
     let lastErr = null;
     for (const url of AI_URLS) {
       try {
+        console.log(`[UltrasoundReport] Trying ${url}...`);
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 60000);
         const response = await fetch(url, {
@@ -297,18 +298,35 @@ Please generate preliminary technical findings for this vascular ultrasound exam
           signal: controller.signal,
         });
         clearTimeout(timeout);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        if (!response.ok) {
+          const errBody = await response.text().catch(() => '');
+          console.error(`[UltrasoundReport] HTTP ${response.status} from ${url}:`, errBody);
+          throw new Error(`HTTP ${response.status}: ${errBody.slice(0, 200)}`);
+        }
         const data = await response.json();
-        const content = data.choices?.[0]?.message?.content || '';
+        console.log('[UltrasoundReport] Response keys:', Object.keys(data));
+        console.log('[UltrasoundReport] Full response:', JSON.stringify(data).slice(0, 500));
+        // OpenAI-compatible format (direct Ollama /v1/ endpoints)
+        const content = data.choices?.[0]?.message?.content
+          // Ollama native format (office proxy /api/chat)
+          || data.message?.content
+          || '';
+        if (!content) {
+          console.warn('[UltrasoundReport] Empty content from', url, '— trying next endpoint');
+          lastErr = new Error('Empty response from AI');
+          continue;
+        }
+        console.log(`[UltrasoundReport] Success from ${url}, ${content.length} chars`);
         setGeneratedReport(content);
         setIsLoading(false);
         return;
       } catch (err) {
+        console.error(`[UltrasoundReport] Failed ${url}:`, err.message);
         lastErr = err;
       }
     }
 
-    setGeneratedReport(`Error generating report: ${lastErr?.message}\n\nCheck connection to office network and try again.`);
+    setGeneratedReport(`Error generating report: ${lastErr?.message}\n\nAll endpoints failed. Check browser console (F12) for details.\nEndpoints tried:\n${AI_URLS.join('\n')}`);
     setIsLoading(false);
   };
 

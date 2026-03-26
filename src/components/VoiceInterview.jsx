@@ -81,7 +81,7 @@ function VoiceInterview({ onAutoFill, onClose, patientType, selectedConditions =
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            model: 'llama3:8b',
+            model: 'alibayram/medgemma:27b',
             messages: [
               { role: 'system', content: EXTRACTION_PROMPT },
               { role: 'user', content: `${conditionContext}\n\nExtract clinical data from this transcript:\n\n${transcription}` }

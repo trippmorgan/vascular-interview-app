@@ -288,7 +288,7 @@ Please generate preliminary technical findings for this vascular ultrasound exam
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            model: 'llama3:8b',
+            model: 'qwen3:8b',
             messages: [
               { role: 'system', content: systemPrompt },
               { role: 'user', content: userMessage }

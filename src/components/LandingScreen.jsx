@@ -18,7 +18,7 @@ const commonCombos = [
   { label: 'PAD + Carotid + AAA', conditions: ['pad', 'carotid', 'aaa'] },
 ];
 
-function LandingScreen({ onStartInterview }) {
+function LandingScreen({ onStartInterview, onOpenUltrasound }) {
   const [selected, setSelected] = useState([]);
 
   const toggleCondition = (id) => {
@@ -140,17 +140,28 @@ function LandingScreen({ onStartInterview }) {
           </button>
         </div>
 
-        {/* PLAUD AI Link */}
-        <div className="text-center mt-8">
-          <a
-            href="https://app.plaud.ai"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-xl shadow-md hover:shadow-lg hover:from-purple-700 hover:to-indigo-700 transition-all duration-200 text-lg"
-          >
-            🎙️ Open PLAUD AI
-          </a>
-          <p className="text-gray-500 text-sm mt-2">Start recording before entering the room</p>
+        {/* Tool Links */}
+        <div className="flex flex-wrap gap-4 justify-center mt-8">
+          <div className="text-center">
+            <button
+              onClick={onOpenUltrasound}
+              className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-semibold rounded-xl shadow-md hover:shadow-lg hover:from-cyan-700 hover:to-blue-700 transition-all duration-200 text-lg"
+            >
+              🔬 Ultrasound Reports
+            </button>
+            <p className="text-gray-500 text-sm mt-2">Generate preliminary US findings</p>
+          </div>
+          <div className="text-center">
+            <a
+              href="https://app.plaud.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-xl shadow-md hover:shadow-lg hover:from-purple-700 hover:to-indigo-700 transition-all duration-200 text-lg"
+            >
+              🎙️ Open PLAUD AI
+            </a>
+            <p className="text-gray-500 text-sm mt-2">Start recording before entering the room</p>
+          </div>
         </div>
 
         {/* Footer */}

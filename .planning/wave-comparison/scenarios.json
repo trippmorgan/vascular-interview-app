@@ -1,0 +1,32 @@
+[
+  {
+    "id": "carotid_unilateral_tight",
+    "examType": "carotid",
+    "label": "Carotid Duplex — left ICA tight stenosis, right normal",
+    "measurements": "Right Side:\nCCA PSV: 65 cm/s, EDV: 18 cm/s\nICA PSV (proximal): 78 cm/s, EDV: 21 cm/s\nICA PSV (mid): 85 cm/s, EDV: 22 cm/s\nICA PSV (distal): 80 cm/s, EDV: 19 cm/s\nPlaque: Mild heterogeneous at bulb, <30% diameter reduction\nVertebral artery: Antegrade flow\n\nLeft Side:\nCCA PSV: 70 cm/s, EDV: 20 cm/s\nICA PSV (proximal): 145 cm/s, EDV: 38 cm/s\nICA PSV (mid): 220 cm/s, EDV: 68 cm/s\nICA PSV (distal): 210 cm/s, EDV: 55 cm/s\nPlaque: Moderate-to-severe calcified at ICA origin, ulcerated surface, est. 60-70% diameter reduction\nVertebral artery: Antegrade flow"
+  },
+  {
+    "id": "lower_arterial_clti",
+    "examType": "lower_arterial",
+    "label": "LE arterial duplex — bilateral disease, CLTI on left",
+    "measurements": "Right Leg:\nABI: 0.78 (using PT)\nCFA: PSV 95 cm/s, biphasic\nSFA proximal: PSV 110 cm/s, biphasic\nSFA mid: PSV 145 cm/s, biphasic with mild spectral broadening\nSFA distal: PSV 195 cm/s, monophasic\nPopliteal: PSV 85 cm/s, monophasic\nAT: monophasic, PSV 60 cm/s\nPT: monophasic, PSV 55 cm/s\n\nLeft Leg:\nABI: 0.38 (incompressible PT, using DP)\nToe pressure: 28 mmHg\nCFA: PSV 580 cm/s with 3.2x velocity step-up vs distal aorta; post-stenotic turbulence\nSFA proximal: monophasic, dampened, PSV 35 cm/s\nSFA distal: no flow detected\nPopliteal: trickle flow PSV 22 cm/s\nAT/PT: monophasic, PSV <30 cm/s\nClinical context: rest pain, non-healing 1st toe ulcer (IschemiaWIfI 2-2-1)"
+  },
+  {
+    "id": "venous_reflux_bilateral_gsv",
+    "examType": "venous_reflux",
+    "label": "Venous insufficiency — bilateral GSV meeting ablation criteria, SSV equivocal",
+    "measurements": "Deep system:\nCFV, fem vein, popliteal vein patent and compressible bilaterally. No DVT.\n\nGreat Saphenous Vein:\nRight - SFJ: 6.9 mm / reflux 1248 ms\n        Prox thigh: 5.95 mm / 1187 ms\n        Mid thigh:  4.03 mm / 776 ms\n        Distal thigh: 3.6 mm / 612 ms\n        Knee: 3.1 mm / 540 ms\nLeft  - SFJ: 8.28 mm / 948 ms\n        Prox thigh: 5.75 mm / 1043 ms\n        Mid thigh:  5.2 mm / 890 ms\n        Distal thigh: 4.4 mm / 720 ms\n\nSmall Saphenous Vein:\nRight - SPJ: 5.05 mm / 699 ms; mid calf: 3.1 mm / 540 ms\nLeft  - SPJ: 4.18 mm / 688 ms; mid calf: 2.6 mm / 450 ms\n\nPerforators: One incompetent paratibial perforator on the right at 14 cm from sole, 4.1 mm, reflux 620 ms."
+  },
+  {
+    "id": "aaa_surveillance",
+    "examType": "aorta",
+    "label": "Abdominal aorta — infrarenal AAA, surveillance",
+    "measurements": "Suprarenal aorta: 1.9 cm AP\nJuxtarenal aorta: 2.1 cm AP\nProximal infrarenal aorta: 2.4 cm AP\nMid infrarenal aorta (max): 4.6 cm AP, 4.4 cm transverse, fusiform; mural thrombus crescent posteriorly est. 8 mm thick\nDistal infrarenal aorta: 3.2 cm AP\nAortic bifurcation: not aneurysmal\nRight common iliac: 1.6 cm AP\nLeft common iliac: 2.1 cm AP (ectatic)\nNo dissection flap. Patent celiac, SMA on color flow.\nClinical context: prior surveillance 2025-09 measured 4.3 cm; interval growth 0.3 cm over 7 months."
+  },
+  {
+    "id": "avf_dysfunction",
+    "examType": "avf",
+    "label": "AV fistula — left brachiocephalic, falling clearance, ?juxta-anastomotic stenosis",
+    "measurements": "Access type: Left brachiocephalic AVF, created 2024-08, in routine use 18 months\nInflow brachial artery: PSV 165 cm/s (within normal 40-200), triphasic-to-biphasic\nArterial anastomosis: PSV 510 cm/s with marked turbulence and color aliasing; ratio 3.1x to inflow brachial\nJuxta-anastomotic outflow vein (first 3 cm): focal narrowing to 2.4 mm diameter, PSV 480 cm/s\nMid cephalic vein in upper arm: 6.2 mm diameter, PSV 95 cm/s, monophasic\nVolume flow (mid brachial artery): 320 ml/min (down from 720 ml/min on 2025-10 study)\nOutflow vein into deltopectoral groove: patent, no central stenosis seen on this study\nClinical context: declining Kt/V over last 2 dialysis cycles, intermittent prolonged bleeding post-cannulation."
+  }
+]

@@ -1,0 +1,61 @@
+# PRELIMINARY TECHNICAL FINDINGS
+**Exam Type:** Lower Extremity Arterial Dup
+lex — Bilateral
+**Technical Quality:** Diagnostic
+
+---
+
+## RIGHT LEG
+
+**A
+BI:** 0.78 (indexed to PT) — mild to moderate PAD range
+
+**Plaque Burden:** Plaque identified along
+ the distal SFA with associated spectral broadening.
+
+**Waveform Morphology:** Biphasic at the CFA through
+ mid-SFA; monophasic from the distal SFA through tibial vessels, indicating loss of peripheral
+ resistance distal to the stenotic segment.
+
+**Stenosis:**
+- **SFA mid:** PS
+V 145 cm/s with mild spectral broadening — suggestive of <50% stenosis
+- **SFA distal:** PSV 195 cm/s, monophasic — elevated veloc
+ities suggestive of **50–70% stenosis** (PSV criterion met: >180 cm/s)
+
+- Tibial vessels (AT, PT): Monophasic; PSV 60 and 55 cm/s respectively
+ — post-stenotic dampening pattern, no focal velocity elevation
+
+---
+
+
+## LEFT LEG
+
+**ABI:** 0.38 (indexed to DP; PT non-compressible) — severe/advanced PAD range
+
+**Toe Pressure:** 28 mmHg — severe ischemia range (<30
+ mmHg threshold)
+
+**Plaque Burden:** Significant plaque burden identified at the CFA level with post-stenotic turbulence extending
+ into proximal SFA.
+
+**Waveform Morphology:** Monophasic and severely damp
+ened throughout from proximal SFA distally; trickle flow identified in
+ the popliteal artery; near-absent signals in tibial vessels.
+
+**Sten
+osis / Occlusion:**
+- **CFA:** PSV 580 cm/s with 3.2× velocity ratio relative to distal aorta, post-stenotic
+ turbulence — elevated velocities suggestive of **70–99% stenosis** (PSV criterion met: >300 cm/s)
+- **SFA proximal:** Severely dampened monophasic
+ waveform, PSV 35 cm/s — consistent with post-stenotic inflow compromise
+- **SFA distal:** No flow detected — consistent
+ with **occlusion**
+- **Popliteal:** Trickle flow, PSV 22 cm/s — severely compromised
+- **Tibial vessels (AT/
+PT):** Monophasic, PSV <30 cm/s bilaterally — near-absent perfusion
+
+---
+
+*Final interpretation
+ pending physician review.*

@@ -1,0 +1,39 @@
+## PRELIMINARY TECHNICAL FINDINGS
+**
+Carotid Duplex Ultrasound**
+
+---
+
+### RIGHT SIDE
+
+1. **Right ICA — 0-49% stenosis**; highest PSV 85 cm/s (
+mid ICA), highest EDV 22 cm/s.
+2. Mild heterogeneous plaque at the
+ right carotid bulb with estimated <30% diameter reduction; no calcification noted.
+3. Right vertebral artery: antegrade flow.
+
+---
+
+###
+ LEFT SIDE
+
+4. **Left ICA — 50-79% stenosis**; highest PSV 220 cm/s (mid ICA), highest EDV 68 cm/s.
+5. Moderate-to-severe calcified pl
+aque at the left ICA origin with ulcerated surface morphology; estimated 60-70% diameter reduction on gray-scale imaging.
+6. Left vertebral artery: antegrade flow
+.
+
+---
+
+> **Stenosis Grading Applied:**
+> - Right ICA: Highest PSV 85 cm/s — below
+ 125 cm/s threshold → **0-49%**
+> - Left ICA: Highest PSV 220 cm/s (>125 cm/s) with
+ highest EDV 68 cm/s (<125 cm/s) → **50-79%**
+> *(EDV did
+ not exceed 125 cm/s; 80-99% threshold not met)*
+
+---
+
+*⚠️ Final interpretation pending physician review.
+ These are preliminary technical findings only.*

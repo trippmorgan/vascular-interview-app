@@ -1,0 +1,29 @@
+## PRELIMINARY TECHNICAL FINDINGS
+**Lower Extremity Arterial Duplex**
+
+---
+
+### RIGHT LEG
+
+**ABI:** 0.78 (PT pressure used) — mild to moderate PAD
+
+1. **Waveform morphology:** Biphasic at CFA through mid-SFA; waveform deterioration to monophasic at SFA distal, popliteal, and tibial levels.
+2. **Stenosis:** SFA mid demonstrated mildly elevated PSV (145 cm/s) with mild spectral broadening, below threshold for 50-70% stenosis. SFA distal PSV 195 cm/s with waveform conversion to monophasic — consistent with **50-70% stenosis** by velocity criteria.
+3. **Tibial runoff:** AT and PT monophasic with preserved flow (PSV 55–60 cm/s); findings consistent with hemodynamic effect of SFA disease.
+
+---
+
+### LEFT LEG
+
+**ABI:** 0.38 (PT non-compressible; DP pressure used) — severe/advanced PAD
+**Toe pressure:** 28 mmHg — below 30 mmHg threshold; severe ischemia by pressure criteria
+
+1. **CFA:** PSV 580 cm/s with post-stenotic turbulence; 3.2x velocity ratio versus distal aorta — consistent with **70-99% stenosis** by velocity criteria (PSV >300 cm/s).
+2. **Waveform morphology:** Severely dampened monophasic waveform throughout SFA proximal (PSV 35 cm/s) and all distal segments, consistent with critical inflow obstruction.
+3. **SFA:** No detectable flow at SFA distal — consistent with **occlusion**.
+4. **Popliteal:** Trickle flow only (PSV 22 cm/s); consistent with collateral-dependent perfusion.
+5. **Tibial vessels:** Monophasic waveforms with PSV <30 cm/s at AT and PT bilaterally.
+
+---
+
+*Final interpretation pending physician review.*

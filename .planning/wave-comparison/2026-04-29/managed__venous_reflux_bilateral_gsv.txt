@@ -1,0 +1,70 @@
+PRELIMINARY TECHNICAL FINDINGS
+Exam Type: Venous Insufficiency/Reflux Study — Bilateral Lower Extremity
+Final interpretation pending physician review
+
+---
+
+**DEEP SYSTEM**
+CFV, femoral vein, and popliteal vein were patent and compressible bilaterally. No sonographic evidence of DVT.
+
+---
+
+**GREAT SAPHENOUS VEIN**
+
+*Right GSV:*
+Reflux was identified from the SFJ throughout the knee level.
+
+| Level | Diameter | Reflux |
+|---|---|---|
+| SFJ | 6.9 mm | 1248 ms |
+| Proximal thigh | 5.95 mm | 1187 ms |
+| Mid thigh | 4.03 mm | 776 ms |
+| Distal thigh | 3.6 mm | 612 ms |
+| Knee | 3.1 mm | 540 ms |
+
+**Meets criteria for ablation.** (SFJ reflux >500 ms ✓ | Proximal thigh ≥5.5 mm ✓ | ≥3 separate levels with reflux >500 ms ✓)
+
+---
+
+*Left GSV:*
+Reflux was identified from the SFJ through the distal thigh.
+
+| Level | Diameter | Reflux |
+|---|---|---|
+| SFJ | 8.28 mm | 948 ms |
+| Proximal thigh | 5.75 mm | 1043 ms |
+| Mid thigh | 5.2 mm | 890 ms |
+| Distal thigh | 4.4 mm | 720 ms |
+
+**Meets criteria for ablation.** (SFJ reflux >500 ms ✓ | Proximal thigh ≥5.5 mm ✓ | ≥3 separate levels with reflux >500 ms ✓)
+
+---
+
+**SMALL SAPHENOUS VEIN**
+
+*Right SSV:*
+
+| Level | Diameter | Reflux |
+|---|---|---|
+| SPJ | 5.05 mm | 699 ms |
+| Mid calf | 3.1 mm | 540 ms |
+
+**Meets criteria for ablation.** (At least one level ≥3.0 mm ✓ | ≥2 separate levels with reflux >500 ms ✓)
+
+---
+
+*Left SSV:*
+
+| Level | Diameter | Reflux |
+|---|---|---|
+| SPJ | 4.18 mm | 688 ms |
+| Mid calf | 2.6 mm | 450 ms |
+
+**Does not meet criteria for ablation.** (Mid calf reflux 450 ms does not exceed 500 ms threshold — only 1 qualifying level identified.)
+
+---
+
+**PERFORATORS**
+One incompetent paratibial perforator identified on the right at 14 cm from the sole: 4.1 mm diameter with 620 ms reflux. Meets perforator incompetence criteria (>3.5 mm and >500 ms reflux).
+
+No incompetent perforators identified on the left.

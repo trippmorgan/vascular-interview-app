@@ -1,10 +1,31 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { streamSse } from '../lib/streamingFetch';
 
 const AI_URLS = [
   'http://10.66.19.163:8888/api/chat',          // Office proxy (Precision)
   'http://100.101.184.20:11434/v1/chat/completions',  // Direct Voldemort (Tailscale)
   'http://192.168.0.125:11434/v1/chat/completions',   // Direct Voldemort (home LAN)
 ];
+
+// Empty default => same-origin (works when served by claude-team at /vascular/).
+// Set VITE_CLAUDE_API_BASE in dev (e.g. http://100.75.237.36:3000) to point
+// the vite-served app at the office daemon.
+const CLAUDE_API_BASE = import.meta.env.VITE_CLAUDE_API_BASE || '';
+
+const AI_BACKENDS = [
+  { value: 'ollama',         label: 'Ollama medgemma (local)' },
+  { value: 'claude-api',     label: 'Claude — Messages API' },
+  { value: 'claude-sdk',     label: 'Claude — Agent SDK' },
+  { value: 'claude-managed', label: 'Claude — Managed Agent' },
+];
+
+const BACKEND_TO_WAVE = {
+  'claude-api':     'api',
+  'claude-sdk':     'sdk',
+  'claude-managed': 'managed',
+};
+
+const BACKEND_STORAGE_KEY = 'vascular.aiBackend';
 
 const VascularReportAssistant = ({ onBack }) => {
   const [examType, setExamType] = useState('');
@@ -15,6 +36,21 @@ const VascularReportAssistant = ({ onBack }) => {
   const [showSettings, setShowSettings] = useState(false);
   const [historyExpanded, setHistoryExpanded] = useState(true);
   const [copied, setCopied] = useState(false);
+
+  // Hydrate AI backend choice from localStorage. Defaults to ollama so
+  // existing users see no behavior change after deploy.
+  const [aiBackend, setAiBackend] = useState(() => {
+    if (typeof window === 'undefined') return 'ollama';
+    return window.localStorage.getItem(BACKEND_STORAGE_KEY) || 'ollama';
+  });
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    window.localStorage.setItem(BACKEND_STORAGE_KEY, aiBackend);
+  }, [aiBackend]);
+
+  // Last-run telemetry surfaced in the status line under the report.
+  // null until a run completes; reset on each new generate.
+  const [lastRunStats, setLastRunStats] = useState(null);
 
   // History fields
   const [studyType, setStudyType] = useState('baseline');
@@ -265,6 +301,7 @@ Deep System: CFV/fem vein/pop patent and compressible bilaterally`
 
     setIsLoading(true);
     setGeneratedReport('');
+    setLastRunStats(null);
 
     const selectedExam = examTypes.find(e => e.value === examType);
     const historyText = compileHistory();
@@ -278,6 +315,57 @@ ${measurements}
 
 Please generate preliminary technical findings for this vascular ultrasound exam. Format as a structured sonographer report following SVS standards and our custom criteria. Include appropriate technical observations and vessel-by-vessel findings. ${priorFindings ? 'Include a COMPARISON section noting any interval changes, progression, improvement, or stable findings compared to the prior exam.' : ''}`;
 
+    if (aiBackend !== 'ollama') {
+      // Claude path -- POST to claude-team's clinical route, stream SSE.
+      const wave = BACKEND_TO_WAVE[aiBackend];
+      const url = `${CLAUDE_API_BASE}/api/clinical/ultrasound`;
+      const t0 = performance.now();
+      let buffer = '';
+      try {
+        await streamSse({
+          url,
+          body: {
+            examType,
+            measurements,
+            criteria: customCriteria || undefined,
+            history: historyText,
+            priorFindings: priorFindings || undefined,
+            wave,
+          },
+          onChunk: (chunk) => {
+            if (chunk.type === 'text') {
+              buffer += chunk.delta;
+              setGeneratedReport(buffer);
+            } else if (chunk.type === 'done') {
+              setLastRunStats({
+                backend: aiBackend,
+                wave,
+                firstTokenMs: chunk.firstTokenMs,
+                totalMs: chunk.totalMs,
+                inputTokens: chunk.inputTokens,
+                outputTokens: chunk.outputTokens,
+                costUsd: chunk.costUsd,
+                wallClockMs: Math.round(performance.now() - t0),
+              });
+            } else if (chunk.type === 'error') {
+              throw new Error(chunk.message);
+            }
+          },
+        });
+        if (!buffer.trim()) {
+          throw new Error('Empty response from Claude');
+        }
+        console.log(`[UltrasoundReport] Claude (${wave}) success: ${buffer.length} chars`);
+      } catch (err) {
+        console.error(`[UltrasoundReport] Claude (${wave}) failed:`, err.message);
+        setGeneratedReport(`Error generating report (${aiBackend}): ${err.message}\n\nCheck the backend selector and verify the office daemon is reachable at ${url}.`);
+      } finally {
+        setIsLoading(false);
+      }
+      return;
+    }
+
+    // Ollama path (default) -- preserves the original local-AI flow exactly.
     let lastErr = null;
     for (const url of AI_URLS) {
       try {
@@ -367,6 +455,17 @@ Please generate preliminary technical findings for this vascular ultrasound exam
               </div>
             </div>
             <div className="flex items-center gap-2">
+              <select
+                value={aiBackend}
+                onChange={(e) => setAiBackend(e.target.value)}
+                disabled={isLoading}
+                title="AI backend"
+                className="px-2 py-2 border border-gray-300 rounded-lg text-sm bg-white text-gray-700 focus:ring-2 focus:ring-indigo-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
+              >
+                {AI_BACKENDS.map((b) => (
+                  <option key={b.value} value={b.value}>{b.label}</option>
+                ))}
+              </select>
               <button
                 onClick={() => setShowSettings(!showSettings)}
                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors text-xl"
@@ -587,6 +686,25 @@ Please generate preliminary technical findings for this vascular ultrasound exam
                 <p className="text-xs text-blue-800">
                   <strong>Next Steps:</strong> Review the generated findings for accuracy, make any necessary edits, then copy to your final report system. Remember to add patient identifiers in your official documentation system.
                 </p>
+              </div>
+            )}
+
+            {lastRunStats && (
+              <div className="mt-3 bg-gray-50 border border-gray-200 rounded-lg p-3 text-xs text-gray-700 font-mono flex flex-wrap gap-x-4 gap-y-1">
+                <span><strong>{lastRunStats.backend}</strong></span>
+                {lastRunStats.firstTokenMs != null && (
+                  <span>TTFB: {(lastRunStats.firstTokenMs / 1000).toFixed(2)}s</span>
+                )}
+                <span>total: {(lastRunStats.totalMs / 1000).toFixed(2)}s</span>
+                {lastRunStats.inputTokens != null && (
+                  <span>in: {lastRunStats.inputTokens.toLocaleString()} tok</span>
+                )}
+                {lastRunStats.outputTokens != null && (
+                  <span>out: {lastRunStats.outputTokens.toLocaleString()} tok</span>
+                )}
+                {lastRunStats.costUsd != null && (
+                  <span>cost: ${lastRunStats.costUsd.toFixed(4)}</span>
+                )}
               </div>
             )}
           </div>

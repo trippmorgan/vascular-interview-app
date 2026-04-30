@@ -37,11 +37,11 @@ const VascularReportAssistant = ({ onBack }) => {
   const [historyExpanded, setHistoryExpanded] = useState(true);
   const [copied, setCopied] = useState(false);
 
-  // Hydrate AI backend choice from localStorage. Defaults to ollama so
-  // existing users see no behavior change after deploy.
+  // Hydrate AI backend choice from localStorage. Defaults to claude-api
+  // per SPEC R8 (the new default for v1; users can still pick Ollama).
   const [aiBackend, setAiBackend] = useState(() => {
-    if (typeof window === 'undefined') return 'ollama';
-    return window.localStorage.getItem(BACKEND_STORAGE_KEY) || 'ollama';
+    if (typeof window === 'undefined') return 'claude-api';
+    return window.localStorage.getItem(BACKEND_STORAGE_KEY) || 'claude-api';
   });
   useEffect(() => {
     if (typeof window === 'undefined') return;

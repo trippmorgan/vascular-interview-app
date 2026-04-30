@@ -13,6 +13,9 @@ dist-claude-team
 dist-ssr
 *.local
 
+# wave-comparison: keep .txt + .json + metrics, drop raw SSE dumps
+.planning/wave-comparison/**/*.sse
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
